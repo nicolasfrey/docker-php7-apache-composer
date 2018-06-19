@@ -32,6 +32,7 @@ RUN apt-get update && apt-get -y install build-essential \
         re2c \
         bison \
 		apt-utils \
+		ghostscript \
         ca-certificates --no-install-recommends
 
 # Install PHP 7 Extension
@@ -39,7 +40,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
         libsqlite3-dev \
         libssl-dev \
         libcurl3-dev \

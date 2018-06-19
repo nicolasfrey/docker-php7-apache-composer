@@ -1,3 +1,4 @@
 $ docker build . --platform=linux
-$ docker tag containerID nicolasfrey/php7.0-apache-composer:version
-$ docker push nicolasfrey/php7.0-apache-composer:version
+=> Successfully built d6dc567c2a2e
+$ docker tag d6dc567c2a2e nicolasfrey/php7.0-apache-composer:0.2
+$ docker push nicolasfrey/php7.0-apache-composer:0.2
