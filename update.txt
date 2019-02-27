@@ -2,3 +2,9 @@ $ docker build . --platform=linux
 => Successfully built d6dc567c2a2e
 $ docker tag d6dc567c2a2e nicolasfrey/php7.0-apache-composer:0.2
 $ docker push nicolasfrey/php7.0-apache-composer:0.2
+
+# 27/02/2019 FP
+$ docker build . --platform=linux
+=> Successfully built 9dc90642b9ec
+$ docker tag 9dc90642b9ec nicolasfrey/php7.0-apache-composer:0.3
+$ docker push nicolasfrey/php7.0-apache-composer:0.3
