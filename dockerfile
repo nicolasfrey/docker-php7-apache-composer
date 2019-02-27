@@ -98,6 +98,8 @@ RUN { \
 		echo 'date.timezone = Europe/Paris'; \
 		echo 'soap.wsdl_cache = 0'; \
 		echo 'soap.wsdl_cache_enabled = 0'; \
+		echo 'post_max_size = 100M'; \
+		echo 'upload_max_filesize = 100M'; \
     } > /usr/local/etc/php/php.ini
 
 # Create Volume
