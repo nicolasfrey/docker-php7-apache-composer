@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.1-apache
 
 ENV TZ=Europe/Paris
 # Set Server timezone.
