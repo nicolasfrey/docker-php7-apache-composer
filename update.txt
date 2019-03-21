@@ -8,3 +8,15 @@ $ docker build . --platform=linux
 => Successfully built 9dc90642b9ec
 $ docker tag 9dc90642b9ec quipmentit/php7.0-apache-composer:0.3
 $ docker push quipmentit/php7.0-apache-composer:0.3
+
+# 20/03/2019 FP
+$ docker build . --platform=linux
+=> Successfully built 2ef04f1d1658
+$ docker tag 2ef04f1d1658 quipmentit/php7.2-apache-composer:0.1
+$ docker push quipmentit/php7.2-apache-composer:0.1
+
+# 21/03/2019 FP
+$ docker build . --platform=linux
+=> Successfully built 6c4ca94a5131
+$ docker tag 6c4ca94a5131 quipmentit/php7.2-apache-composer:0.2
+$ docker push quipmentit/php7.2-apache-composer:0.2

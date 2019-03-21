@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.2-apache
 
 ENV TZ=Europe/Paris
 # Set Server timezone.
@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y \
         libkrb5-dev \
         libxml2-dev \
         libpcre3-dev \
-    && docker-php-ext-install calendar bcmath mcrypt intl mysqli pdo_mysql xmlrpc zip soap \
+    && docker-php-ext-install calendar bcmath intl mysqli pdo_mysql xmlrpc zip soap \
 	&& docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd
@@ -100,6 +100,7 @@ RUN { \
 		echo 'soap.wsdl_cache_enabled = 0'; \
 		echo 'post_max_size = 100M'; \
 		echo 'upload_max_filesize = 100M'; \
+		echo 'session.gc_maxlifetime = 10800'; \
     } > /usr/local/etc/php/php.ini
 
 # Create Volume
