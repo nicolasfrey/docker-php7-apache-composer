@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.4-apache
 
 ENV TZ=Europe/Paris
 # Set Server timezone.
@@ -14,8 +14,9 @@ RUN addgroup atmp && \
 RUN apt-get update && apt-get -y install \
       build-essential \
       htop \
-      libcurl3 \
-      libcurl3-dev \
+      libzip-dev \
+#      libcurl3 \
+#      libcurl3-dev \
       librecode0 \
       libsqlite3-0 \
       libxml2 \
@@ -44,11 +45,11 @@ RUN apt-get update && apt-get -y install \
 RUN apt-get update && apt-get install -y \
       libfreetype6-dev \
       libjpeg62-turbo-dev \
-      libmcrypt-dev \
+#      libmcrypt-dev \
       libpng-dev \
       libsqlite3-dev \
       libssl-dev \
-      libcurl3-dev \
+#      libcurl3-dev \
       libxml2-dev \
       libzzip-dev \
       libldap2-dev  \
@@ -58,9 +59,10 @@ RUN apt-get update && apt-get install -y \
       libkrb5-dev \
       libxml2-dev \
       libpcre3-dev \
-   && docker-php-ext-install calendar bcmath mcrypt intl mysqli pdo_mysql xmlrpc zip soap \
+   && docker-php-ext-install calendar bcmath intl mysqli pdo_mysql xmlrpc zip soap \
    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
-   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+#   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+   && docker-php-ext-configure gd \
    && docker-php-ext-install gd
 
 # Enable Apache mod_rewrite
