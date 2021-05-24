@@ -8,7 +8,11 @@ RUN echo date.timezone = $TZ > /usr/local/etc/php/conf.d/docker-php-ext-timezone
 
 ### Ajout user atmp dans l'image
 RUN addgroup atmp && \
-   useradd -m -d /home/atmp -g atmp atmp
+    useradd -m -d /home/atmp -g atmp atmp
+
+### Config apache
+RUN rm /etc/apache2/sites-enabled/000-default.conf && \
+    sed -i -e "s/Listen 80/Listen 8080/g" /etc/apache2/ports.conf
 
 # Install Tools
 RUN apt-get update && apt-get -y install \
@@ -40,6 +44,16 @@ RUN apt-get update && apt-get -y install \
       apt-utils \
       ghostscript \
       ca-certificates --no-install-recommends
+
+### Install PDFtk
+ENV PDFTK_PACKAGES \
+    "pdftk"
+
+RUN mkdir -p /usr/share/man/man1 && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends $PDFTK_PACKAGES && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Install PHP 7 Extension
 RUN apt-get update && apt-get install -y \
@@ -112,4 +126,4 @@ VOLUME ['/etc/apache2/sites-enabled','/var/www/html']
 
 WORKDIR /var/www/html
 
-EXPOSE 80
+EXPOSE 8080
