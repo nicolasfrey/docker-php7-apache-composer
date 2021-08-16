@@ -106,7 +106,7 @@ RUN { \
 } > /usr/local/etc/php/php.ini
 
 # Create Volume
-VOLUME ['/etc/apache2/sites-enabled','/var/www/html']
+#VOLUME ['/etc/apache2/sites-enabled','/var/www/html']
 
 WORKDIR /var/www/html
 
