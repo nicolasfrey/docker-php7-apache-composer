@@ -7,8 +7,8 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 RUN echo date.timezone = $TZ > /usr/local/etc/php/conf.d/docker-php-ext-timezone.ini
 
 ### Ajout user atmp dans l'image
-RUN addgroup atmp && \
-    useradd -m -d /home/atmp -g atmp atmp
+RUN addgroup docker && \
+    useradd -m -d /home/docker -g docker docker
 
 ### Config apache
 RUN rm /etc/apache2/sites-enabled/000-default.conf && \
@@ -19,8 +19,6 @@ RUN apt-get update && apt-get -y install \
       build-essential \
       htop \
       libzip-dev \
-#      libcurl3 \
-#      libcurl3-dev \
       librecode0 \
       libsqlite3-0 \
       libxml2 \
@@ -59,11 +57,9 @@ RUN mkdir -p /usr/share/man/man1 && \
 RUN apt-get update && apt-get install -y \
       libfreetype6-dev \
       libjpeg62-turbo-dev \
-#      libmcrypt-dev \
       libpng-dev \
       libsqlite3-dev \
       libssl-dev \
-#      libcurl3-dev \
       libxml2-dev \
       libzzip-dev \
       libldap2-dev  \
@@ -75,7 +71,6 @@ RUN apt-get update && apt-get install -y \
       libpcre3-dev \
    && docker-php-ext-install calendar bcmath intl mysqli pdo_mysql xmlrpc zip soap \
    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
-#   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
    && docker-php-ext-configure gd \
    && docker-php-ext-install gd
 
@@ -87,14 +82,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install composer system-wide
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.21 && \
-    php -r "unlink('composer-setup.php');"
-
-# Install composer global package
-RUN composer global require "fxp/composer-asset-plugin:1.4.*"
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    php -r "unlink('composer-setup.php');" && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
